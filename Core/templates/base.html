@@ -2,11 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {% block title %}
-    {% endblock title %}
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+    <p>
+        <a href="{% url "core:index" %}">Learning Log</a> |
+        <a href="{% url "core:topics" %}">Topics</a> |
+    </p>
 </head>
-<body>
-    {% block content %}
-    {% endblock content %}
-</body>
+    <body>
+        {% block content %}
+        {% endblock content %}
+    </body>
 </html>
