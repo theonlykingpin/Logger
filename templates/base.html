@@ -9,6 +9,12 @@
     <p>
         <a href="{% url "core:index" %}">Learning Log</a> |
         <a href="{% url "core:topics" %}">Topics</a> |
+        {% if user.is_authenticated %}
+            Hello, {{ user.username }}. |
+            <a href="{% url "users:logout" %}">Logout</a>
+        {% else %}
+            <a href="{% url "users:login" %}">Login</a>
+        {% endif %}
     </p>
 </head>
     <body>
