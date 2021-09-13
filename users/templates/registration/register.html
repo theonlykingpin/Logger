@@ -1,14 +1,21 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 
 {% block title %}
-    User Register
+    Register
 {% endblock title %}
 
+{% block page_header %}
+    <h2>Register a new user.</h2>
+{% endblock page_header %}
+
 {% block content %}
-  <form action="{% url 'users:register' %}" method="post">
+  <form action="{% url 'users:register' %}" method="post" class="form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Register</button>
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button name="submit" class="btn btn-success">Register</button>
+    {% endbuttons %}
     <input type="hidden" name="next" value="{% url 'core:index' %}" />
   </form>
 {% endblock content %}

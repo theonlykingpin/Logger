@@ -1,19 +1,21 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 
 {% block title %}
     Login
 {% endblock title %}
 
+{% block page_header %}
+    <h2>Login to your account.</h2>
+{% endblock page_header %}
+
 {% block content %}
-
-  {% if form.errors %}
-    <p>Somethings went wrong. Please try again.</p>
-  {% endif %}
-
-  <form action="{% url 'users:login' %}" method="post">
+  <form action="{% url 'users:login' %}" method="post" class="form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Log in</button>
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button name="submit" class="btn btn-primary">Log in</button>
+    {% endbuttons %}
     <input type="hidden" name="next" value="{% url 'core:index' %}" />
   </form>
 {% endblock content %}
