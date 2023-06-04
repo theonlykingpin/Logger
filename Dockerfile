@@ -10,8 +10,12 @@ COPY . /app
 # Install project dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose a port (if your project requires it)
-# EXPOSE <port>
+# Install NGINX and configure it
+RUN apt-get update && apt-get install -y nginx
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Set the command to run your application
-CMD [ "python", "app.py" ]
+# Expose port 80 for NGINX
+EXPOSE 80
+
+# Set the command to start NGINX and Gunicorn
+CMD service nginx start && gunicorn app:app -b 0.0.0.0:8000
