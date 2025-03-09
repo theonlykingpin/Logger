@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 def register(request):
     if request.method == 'POST':
@@ -9,6 +10,8 @@ def register(request):
             new_user = form.save()
             login(request, new_user)
             return redirect('core:index')
+        else:
+            messages.error(request, "Please correct the error below.")
     else:
         form = UserCreationForm()
     
