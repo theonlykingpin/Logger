@@ -11,11 +11,14 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install NGINX and configure it
-RUN apt-get update && apt-get install -y nginx
+RUN apt-get update && apt-get install -y nginx \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 80 for NGINX
 EXPOSE 80
 
 # Set the command to start NGINX and Gunicorn
-CMD service nginx start && gunicorn app:app -b 0.0.0.0:8000
+CMD ["sh", "-c", "service nginx start && gunicorn app:app -b 0.0.0.0:8000"]
